@@ -84,7 +84,7 @@ export const actions = {
               {
                 address: data.get('paymail'),
                 note: 'gurudakshina',
-                amount: data.get('amount'),
+                amount: Number(data.get('amount')),
               }
             ]
           };
