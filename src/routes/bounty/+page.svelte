@@ -5,7 +5,7 @@
 <div
   class="mt-10 pt-10 w-full max-w-xl p-12 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg"
 >
-  <form method="POST" action="?/create">
+  <form method="POST" action="?/deploy">
     <div class="flex flex-wrap -mx-3 mb-2">
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
         <label
@@ -50,17 +50,25 @@
       </button>
     </div>
   </form>
-  {#if form?.success}
-    <!-- this message is ephemeral; it exists because the page was rendered in
+  {#if form?.deployed}
+      <!-- this message is ephemeral; it exists because the page was rendered in
 		   response to a form submission. it will vanish if the user reloads -->
-<p class="pt-2">Bounty was deployed <a href={'https://whatsonchain.com/tx/' + form?.tx}>Transaction Link</a></p>
-  {/if}
+      <p class="pt-2 text-green-600 font-semibold">
+        Bounty was deployed successfully: <a
+          class="text-indigo-500 underline font-semibold"
+          target="_blank"
+          href={`https://whatsonchain.com/tx/${form?.txid}`}>Trasaction Link</a
+        >!
+      </p>
+      {:else if form?.deployed === false}
+      <p >{form?.txid}</p>
+    {/if}
 </div>
 
 <div
   class="mt-10 pt-10 w-full max-w-xl p-12 mx-auto rounded-lg shadow-xl dark:bg-white/10 bg-white/30 ring-1 ring-gray-900/5 backdrop-blur-lg"
 >
-  <form method="POST" action="?/create">
+  <form method="POST" action="?/unlock">
     <div class="flex flex-wrap -mx-3 mb-2">
       <div class="w-full md:w-1/3 px-3 mb-6 md:mb-0">
         <label
@@ -92,8 +100,18 @@
     </div>
   </form>
   {#if form?.success}
-    <!-- this message is ephemeral; it exists because the page was rendered in
+      <!-- this message is ephemeral; it exists because the page was rendered in
 		   response to a form submission. it will vanish if the user reloads -->
-<p class="pt-2">Bounty was unlocked deployed <a href={'https://whatsonchain.com/tx/' + form?.tx}>Transaction Link</a></p>
-  {/if}
+      <p class="pt-2 text-green-600 font-semibold">
+        Bounty was unlocked successfully: <a
+          class="text-indigo-500 underline font-semibold"
+          target="_blank"
+          href={`https://whatsonchain.com/tx/${form?.txid}`}>Trasaction Link</a
+        >!
+      </p>
+    {:else if form?.success === false}
+      <p class="pt-2 text-red-600 font-semibold">
+        {form?.txid} 
+      </p>
+    {/if}
 </div>
